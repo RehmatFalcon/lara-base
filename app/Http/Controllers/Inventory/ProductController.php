@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Inventory;
 
+use App\Helpers\FlashMessage;
 use App\Http\Controllers\Controller;
 use App\Modules\Inventory\Dto\AddProductDto;
 use App\Modules\Inventory\Dto\EditCategoryDto;
@@ -40,24 +41,31 @@ class ProductController extends Controller
 
     public function AddPost(FormRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['string', 'required', 'min:3'],
-            'unit' => ['string', 'required', 'min:2'],
-            'in_rate' => ['numeric', 'required'],
-            'out_rate' => ['numeric', 'required'],
-            'category_id' => ['numeric', 'required'],
-        ]);
+        try {
+            $request->validate([
+                'name' => ['string', 'required', 'min:3'],
+                'unit' => ['string', 'required', 'min:2'],
+                'in_rate' => ['numeric', 'required'],
+                'out_rate' => ['numeric', 'required'],
+                'category_id' => ['numeric', 'required'],
+            ]);
 
-        $dto = new AddProductDto();
-        $dto->name = $request->post('name');
-        $dto->unit = $request->post('unit');
-        $dto->inRate = $request->float('in_rate');
-        $dto->outRate = $request->float('out_rate');
-        $dto->category = Category::find($request->integer('category_id'));
+            $dto = new AddProductDto();
+            $dto->name = $request->post('name');
+            $dto->unit = $request->post('unit');
+            $dto->inRate = $request->float('in_rate');
+            $dto->outRate = $request->float('out_rate');
+            $dto->category = Category::find($request->integer('category_id'));
+            if(!$dto->category) throw new \Exception("Category not found");
 
-        $this->productService->Create($dto);
-
-        return redirect()->to(route("inventory.product.index"));
+            $this->productService->Create($dto);
+            FlashMessage::SetSuccessMessage("Product created");
+            return redirect()->to(route("inventory.product.index"));
+        }
+        catch (\Exception $e) {
+            FlashMessage::SetErrorMessage($e->getMessage());
+            return redirect()->to(route('inventory.product.index'));
+        }
     }
 
     public function Edit(int $id)
@@ -71,6 +79,7 @@ class ProductController extends Controller
                 'categoryList' => $categoryList
             ]);
         } catch (\Exception $e) {
+            FlashMessage::SetErrorMessage($e->getMessage());
             return redirect()->to(route('inventory.product.index'));
         }
     }
@@ -97,8 +106,10 @@ class ProductController extends Controller
             $dto->outRate = $request->float('out_rate');
             $dto->category = $category;
             $this->productService->edit($item, $dto);
+            FlashMessage::SetSuccessMessage("Product updated");
             return redirect()->to(route('inventory.product.index'));
         } catch (\Exception $e) {
+            FlashMessage::SetErrorMessage($e->getMessage());
             return redirect()->to(route('inventory.product.index'));
         }
     }
