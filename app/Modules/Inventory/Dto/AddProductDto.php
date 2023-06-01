@@ -11,4 +11,5 @@ class AddProductDto
     public float $inRate;
     public float $outRate;
     public Category $category;
+    public string $fileName = "";
 }
