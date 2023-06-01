@@ -12,6 +12,7 @@ use App\Modules\Inventory\Services\CategoryService;
 use App\Modules\Inventory\Services\ProductService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -47,7 +48,7 @@ class ProductController extends Controller
                 'unit' => ['string', 'required', 'min:2'],
                 'in_rate' => ['numeric', 'required'],
                 'out_rate' => ['numeric', 'required'],
-                'category_id' => ['numeric', 'required'],
+                'category_id' => ['numeric', 'required']
             ]);
 
             $dto = new AddProductDto();
@@ -57,6 +58,14 @@ class ProductController extends Controller
             $dto->outRate = $request->float('out_rate');
             $dto->category = Category::find($request->integer('category_id'));
             if(!$dto->category) throw new \Exception("Category not found");
+
+            $file = $request->file('image');
+            if($file) {
+                $fileName = $file->hashName();
+//                Storage::put("uploads/" . $fileName, $file);
+                $file->storePubliclyAs("public/uploads", $fileName);
+                $dto->fileName = $fileName;
+            }
 
             $this->productService->Create($dto);
             FlashMessage::SetSuccessMessage("Product created");

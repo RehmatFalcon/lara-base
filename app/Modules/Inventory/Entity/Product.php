@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property float $outRate
  * @property string $unit
  * @property int category_id
+ * @property string $image
  */
 class Product extends Model
 {

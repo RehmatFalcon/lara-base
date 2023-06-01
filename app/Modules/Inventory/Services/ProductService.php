@@ -15,6 +15,7 @@ class ProductService
         $product->inRate = $dto->inRate;
         $product->outRate = $dto->outRate;
         $product->category_id = $dto->category->id;
+        $product->image = $dto->fileName;
         $product->save();
     }
 

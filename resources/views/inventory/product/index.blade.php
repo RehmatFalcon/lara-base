@@ -20,6 +20,9 @@
                         {{ __("SN")  }}
                     </th>
                     <th>
+                        {{ __("Image")  }}
+                    </th>
+                    <th>
                         {{ __("Category")  }}
                     </th>
                     <th>
@@ -50,6 +53,17 @@
                     <tr>
                         <td>
                             {{ $sn++  }}
+                        </td>
+                        <td>
+                            @if($product->image)
+                                @php
+                                    $path = asset("storage/uploads/{$product->image}");
+                                @endphp
+                                <a href="{{ $path  }}" alt="{{ __("Product Image")  }}" target="_blank">
+                                    <img src="{{ $path  }}" class="img img-responsive img-thumbnail"
+                                         style="height: 100px"/>
+                                </a>
+                            @endif
                         </td>
                         <td>
                             {{ $product->category->name  }}
