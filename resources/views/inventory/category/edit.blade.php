@@ -6,22 +6,23 @@
     </x-slot>
 
     <h4 class="dark:text-white">
-        {{ __("Add Products!")  }}
+        {{ __("Edit Product!")  }}
     </h4>
 
     <div class="row">
         <div class="col-4">
-            <form method="post" action="{{ route("inventory.category.add.post")  }}" class="card">
+            <form method="post" action="{{ route("inventory.category.edit.post")  }}" class="card">
                 @csrf
+                <input type="hidden" name="id" value="{{ $category->id  }}">
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name">{{ __("Name")  }}</label>
-                        <input id="name" type="text" class="form-control" name="name" value="{{ old("name")  }}" required>
+                        <input id="name" type="text" class="form-control" name="name" value="{{ old("name", $category->name)  }}" required>
                         <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     </div>
                     <div class="form-group">
                         <label for="code">{{ __("Code")  }}</label>
-                        <input id="code" type="text" class="form-control" name="code" value="{{ old("code")  }}" required>
+                        <input id="code" type="text" class="form-control" name="code" value="{{ old("code", $category->code)  }}" required>
                         <x-input-error class="mt-2" :messages="$errors->get('code')" />
                     </div>
                 </div>
