@@ -1,66 +1,139 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Laravel Breeze
+	1. Install WAMP Server
+		-> Apache, Mysql, Php
+		-> PHP8.2 or more
+		-> include php folder in system path
+	2. Composer [getcomposer.org]
+	3. NodeJs [Current or LTS]
+	4. pnpm
+		-> npm i -g pnpm
+	
+	
+## Project
+1. Create a new laravel project
+	-> Usually command found in laravel.com website 
+		[Getting Started / Installation]
+		composer create-project laravel/laravel your-project-name
+		// Run this command in your project list directory
+	-> Run all other commands in your project directory
+	-> Open Visual Studio Code in your project folder
+		-> Go to your project directory, Right Click and Open Terminal
+			-> code . // opens vs code in your project directory
+		-> Open VS Code
+			-> Open Folder
+	
+2. Install Starter Kit
+	-> Breeze [Found in laravel.com website]
+		-> composer require laravel/breeze --dev
+	-> Install process
+		-> php artisan breeze:install
+	-> Install NPM dependencies
+		-> pnpm i
+		
+3. Database Configuration and Migration
+	-> .env [Db_Database=your_db]
+	-> php artisan migrate
+	
+4. Run app
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+5. Database Connection
+	-> Create a database model/entity
+		-> Select a place to create file
+			-> Create Modules directory
+				-> Create your module directory [Inventory]
+					-> Create an entity folder [Place your database files here]
+					-> Create an entity [Category.php]
+					-> extends Model [use Illuminate\Database\Eloquent\Model]
+						-> select table name
+							protected $table = "inv_category";
+						-> Document name of the columns
+							/**
+							 * @property string $name
+							 * @property string $code
+							 * @property int $id
+							 */
+				
+		->
+	-> Create a new migration
+		-> php artisan make:migration
+			-> add columns to table and rename table
+	-> Run migration
+		-> php artisan migrate
+		
+		
+# Create Category Page
+	-> Create controller
+		-> CategoryController.php
+			-> app / Http / Controllers
+				-> Inventory
+					-> CategoryController.php
+						-> Generate PHP Class
+						-> extends Controller
+	-> Routing
+		When user visits /inventory/category/add	
+			-> Show them category add page
+		// routes/web.php
+		
+		
+1. Front End
+	-> getbootstrap.com
+	
+	
+## Edit
+	1. Create a link which user can click to edit data
+		- what link
+			- inventory/category/add -- for add
+			- inventory/category/edit?categoryId=1
+				-> query parameters 
+					/AdminSetup/TaxSetup/Edit?id=1
+				-> route parameters
+					/AdminSetup/TaxSetup/Edit/1
+	2. Show the old data to the user in the form
+		-> populating the form // populate gareko
+	3. Perform update in the database when user submits
+	
+	
+	
+1. Any Action
+	- Figure out URL
+		/inventory/category/edit
+		/profile
+		/profile-edit
+		/profile/edit
+	- Figure out controller class
+		- app / Http / Controllers
+			- Inventory
+				- CategoryController.php
+			- ProfileController.php
+	- Figure out action
+		public function Edit()
+		{
+			// Get Data from database
+			// show a view
+			return view('inventory.category.edit');
+			return view('profile.edit');
+			return view('user'); // resources / views / user.blade.php			
+		}
+	- Create a view
+		- resources / views / inventory / category / edit.blade.php
+	- Mapping URL or Routing
+		- routes/web.php
+		- GET OR POST
+		Route::get('/inventory/category/edit', [ CategoryController::class, 'Edit' ]);
+		
+		
+		
+// POST
+	-> 1. Figure out url
+			/inventory/category/edit-post
+		2. Figure out controller
+			CategoryController
+		3. Create an action
+			public function EditPost()
+			{
+				return redirect('/inventory/category');
+			}
+		4. Routing
+			Route::post("/inventory/category/edit-post", [ CategoryController.., 'EditPost' 
+			
+			
